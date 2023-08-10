@@ -1,0 +1,122 @@
+version: "1"
+services:
+    lidarr:
+        containe_name: lidarr
+        image: lscr.io/linuxserver/lidarr:latest
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/Medias/Musiques:/music #optional
+            - /volumes1/Medias/A trier:/downloads #optional
+            - /volumes1/docker/arr/lidarr:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 8686:8686
+        restart: unless-stopped
+
+    overseerr:
+        containe_name: overseerr
+        image: lscr.io/linuxserver/overseerr:latest
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/docker/arr/overseerr:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 5055:5055
+        restart: unless-stopped
+
+    radarr:
+        containe_name: radarr
+        image: lscr.io/linuxserver/radarr:latest
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/Medias/Films:/movies #optional
+            - /volumes1/Medias/A trier:/downloads #optional
+            - /volumes1/docker/arr/radarr:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 7878:7878
+        restart: unless-stopped
+
+    readarr:
+        containe_name: readarr
+        image: lscr.io/linuxserver/readarr:develop
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/Medias/Livres:/books #optional
+            - /volumes1/Medias/A trier:/downloads #optional
+            - /volumes1/docker/arr/readarr:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 8787:8787
+        restart: unless-stopped
+
+    requestrr:
+        containe_name: requestrr
+        image: lscr.io/linuxserver/requestrr:latest
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/docker/arr/requestrr:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 4545:4545
+        restart: unless-stopped
+
+    sonarr:
+        containe_name: sonarr
+        image: lscr.io/linuxserver/sonarr:latest
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/Medias/Series/VF:/tv #optional
+            - /volumes1/docker/arr/sonarr:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 8989:8989
+        restart: unless-stopped
+
+    sonarr-vostfr:
+        containe_name: sonarr-vostfr
+        image: lscr.io/linuxserver/sonarr:latest
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/Medias/Series/VOSTFR:/tv #optional
+            - /volumes1/docker/arr/sonarr-vostfr:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 8988:8988
+        restart: unless-stopped
+
+    tautulli:
+        containe_name: tautulli
+        
+        image: lscr.io/linuxserver/tautulli:latest
+        volumes:
+            - /volumes1/Medias:/Medias
+            - /volumes1/docker/arr/tautulli:/config
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Europe/Paris
+        ports:
+            - 8181:8181
+        restart: unless-stopped
